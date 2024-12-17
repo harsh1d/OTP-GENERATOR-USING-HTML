@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Request OTP</h2>
+    <input type="email" id="email" placeholder="Enter your email address" required>
+    <button onclick="requestOTP()">Send OTP</button>
+</div>
+
+<div class="container" style="display:none;" id="verifyContainer">
+    <h2>Verify OTP</h2>
+    <input type="text" id="otp" placeholder="Enter OTP" required>
+    <input type="email" id="verifyEmail" placeholder="Enter your email" required>
+    <button onclick="verifyOTP()">Verify OTP</button>
+</div>
+
+<script>
+    let generatedOTP = '';
+
+    function requestOTP() {
+        const email = document.getElementById('email').value;
+
+        if (!validateEmail(email)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+
+        // Simulate sending OTP (in a real application, you would call your backend API)
+        generatedOTP = Math.floor(100000 + Math.random() * 900000).toString(); // Generate a 6-digit OTP
+        console.log(`Sending OTP ${generatedOTP} to ${email}`); // Simulate sending OTP
+
+        alert('OTP sent successfully! Check your email (simulated).');
+        document.getElementById('verifyContainer').style.display = 'block';
+    }
+
+    function verifyOTP() {
+        const otp = document.getElementById('otp').value;
+        const email = document.getElementById('verifyEmail').value;
+
+        if (otp === generatedOTP && email === document.getElementById('email').value) {
+            alert('OTP verified successfully!');
+        } else {
+            alert('Failed to verify OTP. Please try again.');
+        }
+    }
+
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+    }
+</script>
+
+</body>
+</html>
